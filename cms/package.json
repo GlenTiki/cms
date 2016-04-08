@@ -1,0 +1,21 @@
+{
+  "name": "angularnode101",
+  "version": "1.0.0",
+  "author": "rlacey2",
+  "description": "Angular and Node for IBM Blue MIX",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.10.6",
+    "jwt-simple": "^0.3.1",
+    "lodash": "^3.10.1",
+    "method-override": "^2.3.5",
+    "morgan": "^1.6.1",
+    "mysql": "^2.9.0",
+    "q": "^1.4.1",
+    "recaptcha": "^1.2.1",
+    "request-promise": "^1.0.2"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}

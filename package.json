@@ -1,0 +1,48 @@
+{
+  "name": "cms",
+  "version": "1.0.0",
+  "description": "A cms assignment I completed for enterprise development",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "build": "gulp",
+    "serve": "gulp serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thekemkid/cms.git"
+  },
+  "author": "Glen Keane",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thekemkid/cms/issues"
+  },
+  "homepage": "https://github.com/thekemkid/cms#readme",
+  "dependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.3.13",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babelify": "^7.2.0",
+    "body-parser": "^1.14.1",
+    "browserify": "^12.0.1",
+    "del": "^1.1.1",
+    "express": "^4.13.4",
+    "gulp": "^3.9.1",
+    "jwt-simple": "^0.3.1",
+    "lodash": "^4.0.0",
+    "method-override": "^2.3.5",
+    "morgan": "^1.6.1",
+    "mysql": "^2.9.0",
+    "opn": "^3.0.3",
+    "q": "^1.4.1",
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6",
+    "react-json-inspector": "^6.1.3",
+    "recaptcha": "^1.2.1",
+    "request-promise": "^1.0.2",
+    "superagent": "^1.8.3",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

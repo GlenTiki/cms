@@ -1,0 +1,554 @@
+.clearfix:after {
+  display: block;
+  clear: both;
+  content: "";
+}
+  
+
+html {
+ overflow-y: scroll; /* prevents a scrolling jump */
+}
+
+body {
+    padding-top: 70px; /* required because of the sticky header * 2 */
+  }
+  
+.btnToBottom {
+	position: absolute;
+	bottom: -50px;
+	border: solid 1px black;
+} 
+ 
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+ 
+.attendeeindex {
+ font-size:1.2em;
+}
+.dataEntryPanel:hover
+{
+		background-color : #BBDDFF;
+    margin-right:0; 
+    margin-left:0;  	
+    border-radius: 14px;		
+}	
+  
+.workshopattendee 
+{
+				margin-right:0; 
+				margin-left:0;  	
+				border: 1px solid #333;	
+				border-radius: 14px;			
+}	
+
+.workshopattendee:nth-child(even)
+{
+				background-color: #ffff99;
+				margin-right:0; 
+				margin-left:0;  	
+				 margin-top: 15px;
+				border-radius: 14px;			
+}	
+
+.workshopattendee:nth-child(odd)
+{
+				background-color: #ffffcc;
+				margin-right:0; 
+				margin-left:0;  	
+				 margin-top: 15px;
+				border-radius: 14px;			
+}	
+
+.workshopattendee:hover
+{
+		background-color : cyan;
+    margin-right:0; 
+    margin-left:0;  
+		border-radius: 14px;			
+}	
+
+.form-horizontal .form-group {
+    margin-right:0; 
+    margin-left:0;  
+}
+
+row {
+    margin-right:0; 
+    margin-left:0;  
+}
+
+
+.attendeedataentry .table {
+  width: 96%;
+  max-width: 96%;
+  margin-bottom: 10px;
+}
+
+.testdiv {
+  height:100px;
+  }
+  
+  a {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* not working */
+.attendeedetails_template1     .control-label {
+    padding-top: 7px;
+    margin-bottom: 0;
+    /* text-align: right; */
+}
+
+/* draggable sortable */
+
+.draggablesort .item, .placeholder {
+    padding: 2px;
+    width: 50px;
+    height: 20px;
+    border: 1px solid #333;
+    background: #EEE;
+}
+
+/* draggable sortable */
+.placeholder {
+    background: #AEF;
+}
+
+/* events css */
+
+
+ 
+ .attendeedetails_template1     .control-label {
+    padding-top: 7px;
+    margin-bottom: 0;
+     text-align: left !important;  
+  }
+  
+
+.attendeelist tr:nth-child(even) {
+    background-color: #ffff99;
+}
+.attendeelist tr:nth-child(odd) {
+    background-color: #ffff4d;
+}	
+ 
+ .attendeelist  thead {
+      
+}
+ .attendeelist table {
+     display : block;
+    overflow-y: scroll;
+    max-height:50px;
+}
+  
+  
+ .attendeelist  th {
+    background-color:#B89470;
+    color:white;
+}
+
+.attendeelist  tr:hover
+{
+  background-color: #ff8533;
+}
+
+.attendeelist  tr.selectedEdit
+{
+  background-color: #C0D9AF;
+}
+  
+.attendeelist  td
+{
+font-size: 1.2em;
+}
+
+.attendeelist .choice {
+	width: 30% !important;  
+}
+.attendeelist .surname {
+	width: 15% !important;  
+}
+.attendeelist .forename {
+	width: 10% !important;  
+}
+.attendeelist .position {
+	width: 15% !important;  
+}
+.attendeelist .lunch {
+	width: 15% !important;  
+}
+.attendeelist .tasks {
+	width: 10% !important;  
+}
+
+.attendeelist .dummy {
+	width: 1%;
+}
+
+.event_h_1
+{
+    font-size: 2.5em;
+    background: cyan;
+    border-color : green;
+    border-style: solid;
+}
+
+ .event_h_2
+{
+    font-size: 1.7em;
+    background: #C2A385;
+    border-color : green;
+    border-style: solid;
+}
+.event_h_3
+{
+    font-size: 1.5em;
+    background: #ADFF85;
+    border-color : green;
+    border-style: solid;
+}
+.event_h_4
+{
+    font-size: 1.5em;
+    background: #CC99FF;
+    border-color : green;
+    border-style: solid;
+}
+
+.event_h_5
+{
+    font-size: 1.5em;
+    background: #FFFFAD;
+    border-color : green;
+    border-style: solid;
+}
+
+.offerings_container_1 {
+   background: white;
+ 
+   }
+ 
+.offerings_container_2 {
+   background: #FFD685;
+   }
+ 
+ .offerings_group {
+      margin-top: 10px;
+ }
+ 
+.offerings_line1
+{
+   font-size: 1.2em;
+    background: #E6E68A;
+	 
+}
+
+.offerings_line2
+{
+   font-size: 1.0em;
+    background: #EBEBA1;
+	margin-bottom: 10px;
+	 
+}
+/* events css end */
+
+
+/* at-pagination start */
+
+div.paginationchooser tbody tr:hover
+{
+  background-color: #ffff99;
+}
+
+
+ 
+ 
+
+div.paginationchooser  
+{
+  border-color: #ffff99;
+}
+
+div.paginationchooser table  
+{
+  border-color: #0000ff;
+  border-width:2px;
+  
+      width: 100%;           /* flickering is to do with page redrawing as records move between pages */
+      max-width: 100%;
+	  
+	  margin-bottom:0;
+}
+
+ 
+
+
+div.paginationchooser ul.pagination  {
+    margin: auto;
+  
+}
+
+
+/* at-pagination end */
+
+div.attendeedataentry
+{
+    background: cyan;
+    border-color : green;
+    border-style: solid;
+}
+
+ div.attendeedataentry .form-horizontal .form-group {
+    margin-right: -15px;
+      margin-left:0;  
+}
+
+.alert-danger {
+    color: white;
+    background-color: #CA3939;
+    border-color: #ebccd1;
+}
+  
+    .eventmessage {
+  background: cyan;
+  }
+  
+  .eventdate {
+  background: yellow;
+  }
+  
+    .eventlocation {
+  background: white;
+  }  
+  
+    .eventlocation {
+  background: #F1F1F1;
+  }
+  
+  
+ .numberEntry {
+    width: 30%;
+    text-align: right;
+}
+
+.redtext {color:red}
+
+.ng-form {display: block;}
+input.ng-invalid.ng-dirty {
+    border: solid 1px red;
+}
+.ng-pristine + .error { display: none}
+body { font-family: Arial,Helvetica,sans-serif; }
+body, td, th { font-size: 14px; margin: 0; }
+table { border-collapse: separate; border-spacing: 2px; display: table; margin-bottom: 0; margin-top: 0; -moz-box-sizing: border-box; text-indent: 0; }
+a:link, a:visited, a:hover { color: #5D6DB6; text-decoration: none; }
+.error { color: red; }
+
+
+ 
+ select.ng-invalid.ng-dirty {
+    border: solid 1px #F00;
+}
+ 
+
+ #backgroundPopup {
+    z-index:1;
+    position: fixed;
+    display:none;
+    height:100%;
+    width:100%;
+    background:#000000;
+    top:0px;
+    left:0px;
+} 
+  
+  
+ table tr td:empty {
+    width: 50px;
+}
+
+ 
+div.paddingBetweenCols td 
+{
+    padding: 0 200px 0 15px !important;
+}  
+  
+/* app panels start  */
+.appPanelTable tbody tr:nth-child(even){
+  background-color: #dcdcdc;
+}
+.appPanelTable tbody tr:nth-child(odd){
+  background-color: #aaaaaa;
+}
+
+.appPanelTable tbody tr:hover {
+    cursor: pointer;
+    background-color: #FF9 !important;
+    color: #000;
+}
+
+.appPanelTable thead   {
+    font-size: 50%;
+}
+
+div.headings div   {
+    font-size: 50%;
+}
+
+/*   **** */
+
+.appPanelRows .row:nth-child(even){
+  background-color: #dcdcdc;
+}
+.appPanelRows .row:nth-child(odd){
+  background-color: #aaaaaa;
+}
+.appPanelRows .row:hover {
+    cursor: pointer;
+    background-color: #FF9 !important;
+    color: #000;
+}
+
+.appPanelRowsSubjects .row:nth-child(even){
+  background-color: #dcdc00;
+}
+.appPanelRowsSubjects .row:nth-child(odd){
+  background-color: #aaaa00;
+}
+.appPanelRowsSubjects .row:hover {
+    cursor: pointer;
+    background-color: #FF1 !important;
+    color: #000;
+}
+/* app panels end */
+
+
+/* inline edits */
+div[contentEditable] {
+  cursor: pointer;
+  background-color: white;
+    padding: .2em;
+}
+div[contentEditable]:hover {
+  cursor: pointer;
+  background-color: #D0D0D0;
+    border: 1px solid red;
+  padding: .2em;
+}
+
+/* inline edits send */
+
+  .fixed-panel {
+              min-height: 60;
+              max-height: 60 !important;
+              overflow-y: scroll;
+        }
+
+.customButton1 {
+    width: 100px !important;
+}
+
+a.editDisabled {
+    background-color: red;
+}
+a.editEnabled {
+    background-color: lightgreen;
+}
+
+
+
+ .dashboard {
+ background: #e4edf4;
+ }
+ 
+ /* bootstrap-notify */
+ 
+ /* Start - bootstrap-notify.css */
+.notifications {
+  position: fixed;
+  z-index: 9999;
+}
+
+/* Positioning */ 
+.notifications.top-right {
+  right: 10px;
+  top: 25px;
+}
+
+.notifications.top-left {
+  left: 10px;
+  top: 25px;
+}
+
+.notifications.bottom-left {
+  left: 10px;
+  bottom: 25px;
+}
+
+.notifications.bottom-right {
+  right: 10px;
+  bottom: 25px;
+}
+
+/* Notification Element */
+.notifications > div {
+  position: relative;
+  margin: 5px 0;
+}
+/* End - bootstrap-notify.css */
+.nrz-layer {
+    padding: 15px 15px 15px;
+}
+
+/* bootstrap-notify.css */
+.notifications {
+    filter: alpha(opacity=0.95);
+    opacity: 0.95;
+}
+
+.notifications > div > span {
+    margin-right: 15px;
+}
+
+.notifications > div > a.close {
+    margin-top: -2px;
+}
+
+ 
+
+/* loading */
+/* line 1, ../../../client/app/styles/brandid-ui/_loading.scss */
+.loading {
+  background: transparent url("//d2asqqdjv2zbgw.cloudfront.net/sprites/loader.gif") no-repeat 50% 50%;
+}
+
+/* line 4, ../../../client/app/styles/brandid-ui/_loading.scss */
+.loading-dark {
+  background: transparent url("//d2asqqdjv2zbgw.cloudfront.net/sprites/loader-dark.gif") no-repeat 50% 50%;
+}
+ 
+.tinUpOut {
+  -webkit-animation-name: tinUpOut;
+  -moz-animation-name: tinUpOut;
+  -ms-animation-name: tinUpOut;
+  -o-animation-name: tinUpOut;
+  animation-name: tinUpOut;
+}
+
+@-moz-keyframes tinUpIn {
+  /* line 1233, ../../../client/app/styles/_animate.scss */
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(1, 1) translateY(-900px);
+    -moz-transform: scale(1, 1) translateY(-900px);
+    -ms-transform: scale(1, 1) translateY(-900px);
+    -o-transform: scale(1, 1) translateY(-900px);
+    transform: scale(1, 1) translateY(-900px);
+  }
+}

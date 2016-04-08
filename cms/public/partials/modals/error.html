@@ -1,0 +1,16 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header errorstate">
+	<!-- using cancel() which means the exit route is via the promise failure handler, there is no success route from here -->
+      <button type="button" class="close" ng-click="cancel()">&times;</button>
+      <h4 class="modal-title">{{modalMessage.title}}</h4>
+    </div>
+    <div class="modal-body">
+ 
+      <div>{{modalMessage.text}}</div>
+    </div>
+    <div class="modal-footer">
+				<button type="button" class="btn btn-primary" ng-click="cancel()">Okay</button>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

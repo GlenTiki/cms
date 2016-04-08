@@ -1,0 +1,23 @@
+ 
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+		
+		html, body {
+    width: 210mm;
+    /*height: 297mm;  putting this in restricts to one page*/
+  }
+		
+		body { 
+	 
+		      margin-right: 25pt; 
+					margin-left:  25pt;  	
+			background-image: none; 
+			background-color: red  ; 
+			font-size: 12pt; }
+}
+
+ 

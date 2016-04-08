@@ -1,0 +1,49 @@
+<div class="modal-dialog no-print"> <!-- dynamic i.e. configurable with via options -->
+
+<div class="row">
+<div class="col-md-12" >
+  <div class="modal-content">
+    <div class="modal-header {{modalMessage.header.class}}" style="{{modalMessage.header.style}}"  >
+      <button type="button" class="close" ng-click="cancel()">&times;</button>
+      <span class="{{modalMessage.title.class}}" style="{{modalMessage.title.style}}"   >{{modalMessage.title.text}}</span>
+    </div>
+ </div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-12" >
+    <div class="modal-body {{modalMessage.body.class}}" style="{{modalMessage.body.style}}" >
+		
+			   <div  >  
+				  <span class="{{modalMessage.subtitle.class}}"   style="{{modalMessage.subtitle.style}}"   >{{modalMessage.subtitle.text}}</span>
+						<p>
+         </div>	
+	  
+        <div ng-repeat="l in modalMessage.content" class="{{l.class}}" style="{{l.style}}">
+           {{l.text}} 
+				</div>
+    
+    </div>
+ </div>
+</div>
+
+
+<div class="row">
+<div class="col-md-12" >
+    <div class="modal-footer {{modalMessage.footer.class}}" style="{{modalMessage.footer.style}}">
+		
+		      <button type="button" class="btn btn-primary btndynmodal {{modalMessage.buttons.okay.class}}" ng-click="ok()" ng-if="modalMessage.buttons.okay.visible==true"   style="{{modalMessage.buttons.okay.style}}">
+			{{modalMessage.buttons.okay.text}}</button>
+      <button type="button" class="btn btn-default btndynmodal {{modalMessage.buttons.cancel.class}}" ng-click="cancel()" ng-if="modalMessage.buttons.cancel.visible==true"    style="{{modalMessage.buttons.cancel.style}}">
+			{{modalMessage.buttons.cancel.text}}</button>
+
+    </div>
+ </div>
+</div>
+		 
+		
+
+
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

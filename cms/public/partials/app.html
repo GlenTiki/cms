@@ -1,0 +1,178 @@
+
+
+ 
+<div>
+<div class="row" >
+<div class="col-md-12" > 
+	<h1>App</h1>
+ 
+</div>
+</div>
+<!--
+ <div class="row">
+ <div class="col-md-12" > 
+ </div>
+ </div>
+ -->
+  <div class="row">
+ <div class="col-md-12" > 
+  					<div class="form-group">								
+								<div >             
+									<input type="submit" value="Complex"  class="btn btn-primary"   ng-click="showComplex()"   ng-dblclick="false">
+									<input type="submit" value="Attendees"  class="btn btn-primary"   ng-click="editAttendees()"   ng-dblclick="false">					
+									<input type="submit" value="Test"         class="btn btn-primary"   ng-click="testButton()"   ng-dblclick="false">												
+								</div>
+					</div>
+								<pre ng-show="complexResult" class="ng-binding">{{complexResult}}</pre>
+ </div>
+ </div>
+ 
+ 
+
+
+<div class="row">
+ 
+ <form name="form" class="css-form" novalidate>
+ 
+ 
+	
+	
+	
+	<div class="oneevent">
+		<div class="row ">
+			<div class="col-xs-12 eventmessage">
+			{{formData.offerings.message}}
+			</div>
+		</div>
+ 
+		<div  ng-repeat="s in formData.offerings.dates">
+			<div class="row">
+			   <div class="col-xs-12 eventdate">
+				  {{s.date}}
+				  </div>	
+			 </div>
+	 
+	     <div class="row eventlocationheader">
+			 <div class="col-xs-3">
+			 Location
+			 </div>
+			 <div class="col-xs-3">
+			 Venue
+			 </div>			 
+			 <div class="col-xs-2 centered text-center">
+			 Number of Attendees
+			 </div>			 
+			 <div class="col-xs-2">
+			 Lunch
+			 </div>
+			 <div class="col-xs-2">
+				Attendee Names
+			</div>		
+		 </div>	 	 
+ 
+			<div ng-repeat="v in s.sessions" class="row eventlocation"> 
+		 
+								 <div class="col-xs-3">
+									 {{v.location}}
+									 </div>
+									 <div class="col-xs-3">
+									 {{v.venue}}
+									 </div>			 
+									 <div class="col-xs-2   centered text-center">
+ 
+										<input type="number" name="input" ng-model="v.attendees" class="numberEntry"
+											   min="0" max="{{v.maxAtt || maxAttDefault}}" required>
+ 			 
+									 </div>			 
+									 <div class="col-xs-2">
+									            Yes
+												<input type="checkbox"
+												   ng-model="v.lunch"
+													ng-true-value="true"
+												   ng-false-value="false" />
+												   No
+											<input type="checkbox"
+												   ng-model="v.lunch"
+												   ng-true-value="false"
+												   ng-false-value="true" />								 
+									 </div>		
+									 <div class="col-xs-2">
+								<div class="form-group">								
+								<div >             <!--  attendees.length  < attendeeMax -->
+									<input type="submit" value="Edit"  class="btn btn-primary"   ng-click="editAttendees()"   ng-dblclick="false">
+								</div>
+							</div>
+						</form>
+									 </div>		
+				 
+				</div> <!-- v in sessions -->	
+			 </div>	 <!-- s in dates -->	
+			</div> <!-- oneevent -->
+	
+ 
+ 
+    <input type="checkbox" ng-model="user.agree" name="userAgree" required="" />
+<!--
+    I agree:
+    <input ng-show="user.agree" type="text" ng-model="user.agreeSign" required="" />
+    
+    <div ng-show="form.$submitted || form.userAgree.$touched">
+      <div ng-show="!user.agree || !user.agreeSign">Please agree and sign.</div>
+    </div>
+	-->
+	
+			<div class="row ">
+			<div class="col-xs-4">
+	 		 <!--Recaptcha Widget provided by google --->
+		<div vc-recaptcha key="publicKey"></div>
+			</div>
+						<div class="col-xs-8">
+	                    You must complete the test on the left to prove you are human before submitting the form.<br> This is an anti-spam technique for the registration process. The verification is valid for 2 minutes.
+						 <br>
+						 
+									<div class="form-group">								
+								<div >             <!--  attendees.length  < attendeeMax -->
+										<input type="button" ng-click="resetForm(form)" value="Reset Form" class="btn btn-primary" />
+										<input type="submit" ng-click="submitForm(user)" value="Submit Form" class="btn btn-primary" ng-disabled="!eventForm.valid" />									
+										
+		 							</div>
+							</div>				 
+						 
+						 
+  
+			</div>
+		</div>
+
+	
+
+	
+  </form>
+  <pre>formData = {{formData | json}}</pre>
+ 
+</div>
+</div>
+
+
+
+
+
+
+	 
+ 
+ 
+ 
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+ 

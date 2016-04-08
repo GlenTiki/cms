@@ -1,0 +1,61 @@
+ 
+.modal-dialog  .btndynmodal {
+    width: 120px !important;
+		background-color : #5B84FF; /* a blue */
+		color : white;
+}
+ 
+.modal-dialog   row {
+      margin-right: 0px !important;    
+      margin-left:  0px !important;  
+ }
+ 
+.modal-header.errorstate {
+	background-color : red;
+}
+
+.modal-header.successstate {
+	background-color : #00CC00; /* green */
+}
+
+.errorstateModal {
+	background-color : red;
+}
+
+/* when looking for confirmation from the user */
+.modal-header.confirmstate {
+	background-color :#f4ce54; /* amber color */
+	font-size : 2em;
+}
+
+.dynModalcss3 {
+  font-size:1.2em;
+	color: red;
+	background-color: yellow;
+}
+
+
+.dynModalcss1 {
+  font-size:2em;
+	color: red;
+	background-color: yellow;
+}
+
+.dynModalcss2 {
+  font-size:1.5em;
+	color: black;
+	background-color: cyan;
+}
+
+.dynModalcss3 {
+  font-size:1.2em;
+	color: red;
+	background-color: yellow;
+}
+
+.modal-header.informationstate {
+	background-color :#ffd24d;
+} 
+
+
+ 

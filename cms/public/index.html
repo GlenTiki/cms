@@ -1,0 +1,143 @@
+<!doctype html>
+<html ng-app="genericApp">
+<head>
+  <!--
+  <base href="/javascript/angularjs/alphaevents2015/public/">
+-->
+<meta charset="UTF-8">
+<meta name="google" content="notranslate">
+<meta http-equiv="Content-Language" content="en">
+
+<!-- mixing and matching css frameworks while experimenting -->
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/events.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="css/rlModals.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="css/myCSS.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" media="print" href="css/myPrintCSS.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <div>
+    <!-- HEADER AND NAVBAR -->
+    <header>
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#home">Alpha Events</a>
+
+          </div>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#home"><i>Home</i></a></li>
+
+            <li><a href="#events/seminar/{{cId}}"><i>Seminars</i></a></li>
+
+
+            <li><a href="#about"><i>About</i></a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+  </div>
+
+
+  <!-- used by notify flash messages -->
+  <div nrz-lightify-messages position="top-right"></div>
+
+  <div class="row">
+    <div class="col-md-1" ></div>
+    <!-- content placed here from routing -->
+    <div class="col-md-10" >
+      <div ng-view ></div>
+    </div>
+    <div class="col-md-1" ></div>
+  </div>
+
+  <div id="backgroundPopup" style="opacity: 0.2; display: block;"></div>
+
+  <!-- order of scripts is important here hence the need for amd such as requirejs -->
+
+  <!-- 1.5.0 has an extend which gives an error in 1.6.x, commented out the .extend usage in parse service files-->
+  <script src="//www.parsecdn.com/js/parse-1.6.7.min.js"></script>  <!-- 20151025 -->
+
+  <script type="text/javascript" src="./js/parse/_parseKeys.js"></script>
+
+  <script type="text/javascript" src="./js/thirdparty/lodash.js"></script>
+
+  <script type="text/javascript" src="js/thirdparty/jquery-1.11.1.min.js"></script>
+
+  <!-- <script type="text/javascript" src="./js/login_generic.js"></script>  -->
+  <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script> -->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.js"></script>
+
+  <!--  <script type="text/javascript" src="./js/thirdparty/angular_1_4_6.js"></script> -->
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-animate.js"></script>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script>
+
+  <script type="text/javascript" src="js/thirdparty/angular-route.js"></script>
+  <script type="text/javascript" src="js/controllers/controllers.js"></script>
+
+  <script type="text/javascript" src="js/factory/authorisedUser.js"></script>
+
+  <script type="text/javascript" src="js/services/rlModals.js"></script>
+
+  <script type="text/javascript" src="js/services/services.js"></script>
+
+  <!--  <script type="text/javascript" src="js/factory/questions.js"></script>-->
+  <!-- factory / services -->
+  <!--
+  <script type="text/javascript" src="js/factory/attendees.js"></script>
+-->
+<script type="text/javascript" src="js/factory/state.js"></script>
+
+
+<!--  <script src="js/thirdparty/ui-bootstrap-tpls-0.13.4.min.js"></script>-->
+<script src="js/thirdparty/ui-bootstrap-tpls-0.14.2.min.js"></script>
+<script src="js/thirdparty/modal.js"></script>
+<script src="js/thirdparty/Queue.js"></script>
+
+<!-- Parse specific -->
+<script src="js/parse/ParseServices.js"></script>
+<script src="js/parse/CloudServices.js"></script>
+<script src="js/parse/genericpagination.js"></script>
+<!-- <script src="js/parse/ParseQueryAngular.js"></script> -->
+<script src="js/parse/_ParseObjects.js"></script>
+
+
+<!-- angular scripts, order may be important, when appending to existing dependency -->
+<script type="text/javascript" src="js/thirdparty/notify/bootstrap-notify.js"></script>
+<script type="text/javascript" src="js/thirdparty/notify/angular-lightify.js"></script>
+<script type="text/javascript" src="js/thirdparty/angularModalService.js"></script>
+<script type="text/javascript" src="js/thirdparty/angular-table.min.js"></script>
+<script type="text/javascript" src="js/thirdparty/angular-tabs.min.js"></script>
+
+
+<script type="text/javascript" src="js/app.js"></script>
+
+
+<!-- modal contoller -->
+
+<!-- directive templates-->
+<script src="js/directives/directives.js"></script>
+
+<!--
+
+
+
+<!-- http://code.ciphertrick.com/2015/05/19/google-recaptcha-with-angularjs/-->
+<script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
+<script src="js/thirdparty/angular-recaptcha.min.js"></script> <!-- needed -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+<!--
+<script type="text/javascript" src="js/thirdparty/sortable.js"></script>
+-->
+<script type="text/javascript">
+var vcRecaptchaApiLoaded = function() {
+  console.log("grecaptcha is ready!");
+}
+
+</script>
+
+</body>
+</html>

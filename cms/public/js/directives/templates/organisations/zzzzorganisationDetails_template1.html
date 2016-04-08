@@ -1,0 +1,121 @@
+ <div class="organisationdetails_template1">
+ 
+ <!--   fix this later
+ "organisation_meta" : {  
+										   "ui_text_to_display":"School",    
+										   "allowChooser":true,    
+										   "allowCountyFilter":true,
+										   "addressfilterfield":"County" 
+										},
+ -->
+ <div class="row">
+ <div class="col-md-12" > 
+ <h3>{{formMeta.organisationType}} Details</h3>
+ <hr>
+ {{formData.organisation}}
+ <hr>
+  {{organisation}}
+  <hr>
+  {{specificMeta}}<p>
+  {{extraMeta.meta.visible_also}}<p>
+  
+  {{fn.stringInArray('address4', specificMeta.visible_also)}}
+  <hr>
+ </div>
+ <div class="row">
+ <div class="col-md-4" > 
+  <form class="form-horizontal ng-valid ng-dirty" role="form" name="organisationForm">
+   <fieldset ng-disabled="isSavingForm"> 
+  							<div class="form-group">
+								<label class="col-md-3 control-label">Select</label>                                                                
+								<div class="col-md-9">
+ 									<select class="form-control ng-valid ng-dirty" ng-model='formMeta.organisationchoice' name="organisationid"   
+									                            ng-options='option.orgId as option.name for option in  formMeta.organisationList'>
+									 <option value="">Identify {{formMeta.organisationType}}</option>
+									</select>
+								</div>
+		 			
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">{{formMeta.organisationType}} Id</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control ng-valid ng-dirty" required name="orgid" ng-model="formData.organisation.id" ng-minlength="2" ng-maxlength="32">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">{{formMeta.organisationType}} Name</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control ng-valid ng-dirty" required name="orgname" ng-model="formData.organisation.name" ng-minlength="1" ng-maxlength="32">
+								</div>
+							</div>
+						 
+			   										<div class="form-group">
+												<label class="col-md-3 control-label">Email</label>
+												<div class="col-md-9">
+													<input type="email" class="form-control ng-valid ng-dirty" required name="email" ng-model="formData.organisation.email" ng-minlength="6" ng-maxlength="48" placeholder="{{formMeta.organisationType}} email address">
+												</div>
+											</div>		 
+					 
+													<div class="form-group">
+<div ng-show="fn.stringInVisibleAlso('address1')">															
+														<label class="col-md-3 control-label">Address Line 1</label>
+														<div class="col-md-9">
+															<input type="text" class="form-control ng-valid ng-dirty" required name="orgaddress1" ng-model="formData.organisation.address1" ng-minlength="0" ng-maxlength="48" placeholder="{{formMeta.organisationType}} name here">
+														</div>
+															</div>
+<div ng-show="fn.stringInVisibleAlso('address2')">																
+														<label class="col-md-3 control-label">Address Line 2</label>
+														<div class="col-md-9">
+															<input type="text" class="form-control ng-valid ng-dirty"  name="orgaddress2" ng-model="formData.organisation.address2" ng-minlength="0" ng-maxlength="48" placeholder="{{formMeta.organisationType}} name here">
+														</div>
+															</div>
+<div ng-show="fn.stringInVisibleAlso('address3')">		
+														<label class="col-md-3 control-label">Address Line 3</label>
+														<div class="col-md-9">
+															<input type="text" class="form-control ng-valid ng-dirty"  name="orgaddress3" ng-model="formData.organisation.address3" ng-minlength="0" ng-maxlength="48" placeholder="{{formMeta.organisationType}} name here">
+														</div>				
+														</div>	
+<div ng-show="fn.stringInVisibleAlso('address4')">															
+															<label class="col-md-3 control-label">Address Line 4</label>
+														<div class="col-md-9">
+															<input type="text" class="form-control ng-valid ng-dirty"  name="orgaddress3" ng-model="formData.organisation.address4" ng-minlength="0" ng-maxlength="48" placeholder="{{formMeta.organisationType}} name here">
+														</div>				
+														</div>	
+<div ng-show="fn.stringInVisibleAlso('postcode')">																	
+														<label class="col-md-3 control-label">Post Code</label>
+														<div class="col-md-9">
+															<input type="text" class="form-control ng-valid ng-dirty"  name="orgaddress3" ng-model="formData.organisation.postcode" ng-minlength="0" ng-maxlength="48" placeholder="{{formMeta.organisationType}} name here">
+														</div>														
+													</div>
+						 
+	 				 
+						 
+	 
+											<div class="form-group">
+<div ng-show="fn.stringInVisibleAlso('telephone')">															
+												<label class="col-md-3 control-label">Telephone</label>
+												<div class="col-md-9">
+													<input type="text" class="form-control ng-valid ng-dirty"  name="telephone" ng-model="formData.organisation.telephone" ng-minlength="6" ng-maxlength="48" placeholder="{{formMeta.organisationType}} email address">
+														</div>
+													</div>	
+<div ng-show="fn.stringInVisibleAlso('fax')">																
+													<label class="col-md-3 control-label">Fax</label>
+												<div class="col-md-9">
+													<input type="text" class="form-control ng-valid ng-dirty"  name="fax" ng-model="formData.organisation.fax" ng-minlength="6" ng-maxlength="48" placeholder="{{formMeta.organisationType}} email address">
+												</div>										
+	 
+											</div>	 
+		 			<div class="form-group">
+													<div class="col-md-6">			 					
+									<input type="button"   value="Clear {{formMeta.organisationType}} Details"  class="btn-xs btn-primary"   ng-click="fn.resetCurrentEdit()"          ng-dblclick="false">
+ 								</div>					 
+								</div>	 
+			 					
+</fieldset>
+						</form>
+ </div>
+ 
+ </div>
+  </div>
+  
+  </div>
