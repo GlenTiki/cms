@@ -184,3 +184,22 @@ module.exports.createOverviewSection = function (id) {
     "style" :"",
   }
 }
+
+module.exports.createOfferingSection = function (id) {
+  return {
+    "status":"", "date":"", "quota" : -1,
+    "order":id+1,
+    "visible":true,
+    "lines":[{
+        "text":"Tuesday 26th June 2015",
+        "css":"rl_padding_left_15 rl_font_1_5",
+        "style":""
+      },
+      {
+        "text":"2pm -4.30pm additional info",
+        "css":"rl_padding_left_15 rl_font_1_2",
+        "style":""
+      }
+    ]
+  }
+}

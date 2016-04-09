@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import {OverviewItemEditor} from './itemEditors/overviewItemEditor.js'
+import DatePicker from 'react-datepicker'
+import moment from 'moment'
 var templateBuilder = require('./templateBuilder')
 var createOverviewSection = templateBuilder.createOverviewSection
+var createOfferingSection = templateBuilder.createOfferingSection
 
 export class EventEditor extends Component {
   constructor(props) {
@@ -57,6 +59,18 @@ export class EventEditor extends Component {
     this.setState({event: event})
   }
 
+  addOffering () {
+    var event = this.state.event
+    event.offerings.data.push(createOfferingSection(event.offerings.data.length))
+    this.setState({event: event})
+  }
+
+  deleteOffering () {
+    var event = this.state.event
+    event.offerings.data.pop()
+    this.setState({event: event})
+  }
+
   render () {
     var that = this
     var event = this.state.event
@@ -83,6 +97,7 @@ export class EventEditor extends Component {
       </label>
     )
 
+    // MARK: overview meta element
     var overviewMeta = event.overview.meta
     var overviewMetaEditor = (
       <div>
@@ -93,98 +108,261 @@ export class EventEditor extends Component {
           ref="overviewMetaCss"
           type="text"
           placeholder="css"
-          value={event.overview.meta.css}
+          value={overviewMeta.css}
           onChange={this.handleOverviewMetaChange.bind(this)}
           />
         <input
           ref="overviewMetaStyle"
           type="text"
-          value={event.overview.meta.style}
+          value={overviewMeta.style}
           placeholder="style"
           onChange={this.handleOverviewMetaChange.bind(this)}
           />
         </div>
     )
 
-    var overviewItems = this.state.event.overview.data.slice()
+    // MARK: overview items elements
+    var overviewItems = event.overview.data.slice()
     overviewItems.splice(0, 2)
 
-    var overviewNodes =  overviewItems.map(function (n, i) {
-      var handleOverviewTextChange = function (e) {
-        var next = n
-        next.key = that.refs['onkey'+i].value
-        next.value = that.refs['onvalue'+i].value
-        next.text = `<span style='font-size:2em'>${next.key}:</span> ${next.value}`
-        next.css = that.refs['oncss'+i].value
-        next.style = that.refs['onstyle'+i].value
+    var overviewNodes = (<h4>Nothing to see here. Click the + above to add more overview sections.</h4>)
+    if (overviewItems.length > 0) {
+      overviewNodes = overviewItems.map(function (n, i) {
+        var handleOverviewTextChange = function (e) {
+          var next = n
+          next.key = that.refs['onkey'+i].value
+          next.value = that.refs['onvalue'+i].value
+          next.text = `<span style='font-size:2em'>${next.key}:</span> ${next.value}`
+          next.css = that.refs['oncss'+i].value
+          next.style = that.refs['onstyle'+i].value
+          var event = that.state.event
+          event.overview.data[i+2] = next
+          that.setState({event: event})
+        }
+
+        if(!n.key || !n.value) {
+          var parser = new DOMParser()
+          var htmlDoc=parser.parseFromString(n.text, "text/html")
+          var span = htmlDoc.querySelector('span')
+          var body = htmlDoc.querySelector('body').innerHTML
+          var key = span.innerHTML.replace(':', '')
+          var value = body.replace(span.outerHTML, '')
+          n.key = key
+          n.value = value
+        }
+
+        return (
+          <div key={i} className="callout">
+            <input
+              ref={'onkey'+i}
+              type="text"
+              value={n.key}
+              onChange={handleOverviewTextChange}
+              placeholder="Label"
+              />
+
+            <input
+              ref={'onvalue'+i}
+              type="text"
+              value={n.value}
+              onChange={handleOverviewTextChange}
+              placeholder="details"
+              />
+
+            <input
+              ref={'oncss'+i}
+              type="text"
+              value={n.css}
+              onChange={handleOverviewTextChange}
+              placeholder="css"
+              />
+
+            <input
+              ref={'onstyle'+i}
+              type="text"
+              value={n.style}
+              onChange={handleOverviewTextChange}
+              placeholder="style"
+              />
+          </div>
+        )
+      })
+    }
+
+    // MARK: Offerings meta element
+    var offeringMeta = event.offerings.meta
+    var OfferingMetaNode = function () {
+      var changedColumns = function (e) {
         var event = that.state.event
-        event.overview.data[i+2] = next
+        event.offerings.meta.columns = e.target.value
         that.setState({event: event})
       }
 
-      if(!n.key || !n.value) {
-        var parser = new DOMParser()
-        var htmlDoc=parser.parseFromString(n.text, "text/html")
-        var span = htmlDoc.querySelector('span')
-        var body = htmlDoc.querySelector('body').innerHTML
-        var key = span.innerHTML.replace(':', '')
-        var value = body.replace(span.outerHTML, '')
-        n.key = key
-        n.value = value
+      var handleTextChange = function(){
+        var event = that.state.event
+        event.offerings.meta.columnCss = that.refs['ofcolumncss'].value
+        event.offerings.meta.columnStyle = that.refs['ofcolumnstyle'].value
+        event.offerings.meta.itemCss = that.refs['ofitemcss'].value
+        event.offerings.meta.itemStyle = that.refs['ofitemstyle'].value
+        that.setState({event: event})
       }
 
       return (
-        <div key={i} className="callout">
-          <input
-            ref={'onkey'+i}
-            type="text"
-            value={n.key}
-            onChange={handleOverviewTextChange}
-            placeholder="Label"
-            />
-
-          <input
-            ref={'onvalue'+i}
-            type="text"
-            value={n.value}
-            onChange={handleOverviewTextChange}
-            placeholder="details"
-            />
-
-          <input
-            ref={'oncss'+i}
-            type="text"
-            value={n.css}
-            onChange={handleOverviewTextChange}
-            placeholder="css"
-            />
-
-          <input
-            ref={'onstyle'+i}
-            type="text"
-            value={n.style}
-            onChange={handleOverviewTextChange}
-            placeholder="style"
-            />
+        <div>
+          <div className="input-group">
+            <span className="input-group-label">
+              Columns:
+            </span>
+            <select value={offeringMeta.columns} onChange={changedColumns} className="input-group-field">
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+              <option value={4}>4</option>
+            </select>
           </div>
-        )
-    })
+          <label>Column Css</label>
+          <input
+            ref={'ofcolumncss'}
+            type="text"
+            value={offeringMeta.columnCss}
+            onChange={handleTextChange}
+            placeholder="Column Css"
+          />
+          <label>Column Style</label>
+          <input
+            ref={'ofcolumnstyle'}
+            type="text"
+            value={offeringMeta.columnStyle}
+            onChange={handleTextChange}
+            placeholder="Column Style"
+          />
+        <label>Item Css</label>
+          <input
+            ref={'ofitemcss'}
+            type="text"
+            value={offeringMeta.itemCss}
+            onChange={handleTextChange}
+            placeholder="Item Css"
+          />
+        <label>Item Style</label>
+          <input
+            ref={'ofitemstyle'}
+            type="text"
+            value={offeringMeta.itemStyle}
+            onChange={handleTextChange}
+            placeholder="Item Style"
+          />
+        </div>
+      )
+    }
+    var offeringMetaNode = OfferingMetaNode()
+
+    var offeringsItems = event.offerings.data
+    var offeringsNodes = (<h4>Nothing to see here!</h4>)
+
+    if(offeringsItems.length > 0) {
+      offeringsNodes = offeringsItems.map(function(offering, i) {
+        var handleDateChange = function (date) {
+          event.offerings.data[i].lines[0].text = date.format("dddd Do MMMM YYYY")
+          that.setState({event: event})
+        }
+
+        var handleTextChange = function () {
+          var next = offering
+          next.lines[0].css = that.refs['ofcss'+i].value
+          next.lines[0].style = that.refs['ofstyle'+i].value
+          next.lines[1].style = that.refs['ofsubtitle'+i].value
+          next.lines[1].style = that.refs['ofsubtitlecss'+i].value
+          next.lines[1].style = that.refs['ofsubtitlestyle'+i].value
+          event.offerings.data[i].lines[0] = next
+          that.setState({event: event})
+        }
+
+        return (<div key={i} className="callout">
+          <h5>Offering {i}</h5>
+          Display title: {offering.lines[0].text}
+          <DatePicker
+            selected={moment(offering.lines[0].text, "dddd Do MMMM YYYY")}
+            onChange={handleDateChange}
+            locale="en-ie"
+          />
+          <label>Title css</label>
+          <input
+            ref={'ofcss'+i}
+            type="text"
+            value={offering.lines[0].css}
+            onChange={handleTextChange}
+            placeholder="css"
+          />
+          <label>Title style</label>
+          <input
+            ref={'ofstyle'+i}
+            type="text"
+            value={offering.lines[0].style}
+            onChange={handleTextChange}
+            placeholder="style"
+          />
+          <label>Subtitle</label>
+          <input
+            ref={'ofsubtitle'+i}
+            type="text"
+            value={offering.lines[1].text}
+            onChange={handleTextChange}
+            placeholder="css"
+          />
+          <label>Subtitle css</label>
+          <input
+            ref={'ofsubtitlecss'+i}
+            type="text"
+            value={offering.lines[1].css}
+            onChange={handleTextChange}
+            placeholder="css"
+          />
+        <label>Subtitle style</label>
+          <input
+            ref={'ofsubtitlestyle'+i}
+            type="text"
+            value={offering.lines[1].style}
+            onChange={handleTextChange}
+            placeholder="style"
+          />
+        </div>)
+      })
+    }
+
+    var offeringsSection = (
+      <div>
+        {offeringMetaNode}
+        <div className="row">
+          <button type="button" className="success button" style={{float:'right'}} onClick={ this.addOffering.bind(this) } > + </button>
+          <button type="button" className="alert button" style={{float:'right'}} onClick={ this.deleteOffering.bind(this) } > - </button>
+        <h3 style={{float:'right'}}>Modify Offerings:</h3>
+      </div>
+      {offeringsNodes}
+    </div>
+    )
 
     return (
       <div>
-        <h2> Overview Section </h2>
         <div className="callout">
-          {titleEditor}
-          {subtitleEditor}
-          {overviewMetaEditor}
+          <h2 className=""> Overview Section </h2>
+          <div className="callout">
+            {titleEditor}
+            {subtitleEditor}
+            {overviewMetaEditor}
+          </div>
+          <div className="row">
+            {/*Now, allow variable numbers of fields...*/}
+            <button type="button" className="success button" style={{float:'right'}} onClick={ this.addOverviewSection.bind(this) } > + </button>
+            <button type="button" className="alert button" style={{float:'right'}} onClick={ this.deleteOverviewSection.bind(this) } > - </button>
+            <h3 style={{float:'right'}}>Modify Overview Details:</h3>
+          </div>
+          { overviewNodes }
         </div>
-        <div className="row">
-          {/*Now, allow variable numbers of fields...*/}
-          <button type="button" className="success button" style={{float:'right'}} onClick={ this.addOverviewSection.bind(this) } > + </button>
-          <button type="button" className="alert button" style={{float:'right'}} onClick={ this.deleteOverviewSection.bind(this) } > - </button>
-          <h3 style={{float:'right'}}>Modify Overview Details:</h3>
+        <div className="callout">
+          <h2>Offerings section</h2>
+          { offeringsSection }
         </div>
-        { overviewNodes }
       </div>
     )
   }

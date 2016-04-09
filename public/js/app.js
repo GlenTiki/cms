@@ -102,11 +102,6 @@ export class App extends Component {
     results[results.findIndex((e) => e.id == this.state.currentlyViewing)] = this.refs.editor.getValue()
     this.setState({currentlyViewing: event.target.value, results: results}, this.refs.prettyDebug.onDataChange);
   }
-  //
-  // getCurrentlyEditingSeminar () {
-  //   console.log(this.state.results.find((e) => e.id === this.state.currentlyViewing))
-  //   return this.state.results.find((e) => e.id === this.state.currentlyViewing)
-  // }
 
   render () {
     var optionNodes = this.state.results.map(function(result) {
@@ -119,39 +114,43 @@ export class App extends Component {
 
     var chosenEvent = this.state.results.find((e) => e.id == this.state.currentlyViewing)
     return (
-      <div className="row">
-        <h1 className="text-center"> Data Editor </h1>
-        <div className="input-group">
-          <span className="input-group-label">
-            Edit Event:
-          </span>
-          <select value={this.state.currentlyViewing} onChange={this.onSelectChange.bind(this)} className="input-group-field">
-            {optionNodes}
-          </select>
-          <div className="input-group-button">
-            <input type="submit" className="button" value="add another event" onClick={ this.addMore.bind(this) } />
-          </div>
+      <div>
+        <div className="top-bar">
+          <div className="top-bar-title"><h4>Data Editor</h4></div>
         </div>
-        {
-          this.state.currentlyViewing > -1
-          ? <EventEditor ref='editor' event={chosenEvent} />
-          : <h2> Nothing to see here. try add a new event </h2>
-        }
-        <br/>
         <div className="row">
-          <button type="button" className="success button" style={{float:'right'}} onClick={ this.uploadAllSeminars.bind(this) } > save all changes </button>
+          <div className="input-group">
+            <span className="input-group-label">
+              Edit Event:
+            </span>
+            <select value={this.state.currentlyViewing} onChange={this.onSelectChange.bind(this)}  className="input-group-field">
+            {optionNodes}
+            </select>
+            <div className="input-group-button">
+              <input type="submit" className="button" value="add another event" onClick={ this.addMore.bind(this) } />
+            </div>
+          </div>
           {
             this.state.currentlyViewing > -1
-            ? <div>
-                <button type="button" className="success button" style={{float:'right'}} onClick={ this.uploadSeminar.bind(this) } > save changes to this </button>
-                <button type="button" className="alert button" style={{float:'right'}} onClick={ this.deleteSeminar.bind(this) } > delete this seminar </button>
-              </div>
-            : false
+            ? <EventEditor ref='editor' event={chosenEvent} />
+            : <h2> Nothing to see here. try add a new event </h2>
           }
+          <br/>
+          <div className="row">
+            <button type="button" className="success button" style={{float:'right'}} onClick={ this.uploadAllSeminars.bind(this) } > save all changes </button>
+            {
+              this.state.currentlyViewing > -1
+              ? <div>
+                  <button type="button" className="success button" style={{float:'right'}}  onClick={ this.uploadSeminar.bind(this) } > save changes to this </button>
+                  <button type="button" className="alert button" style={{float:'right'}} onClick={this.deleteSeminar.bind(this) } > delete this seminar </button>
+                </div>
+              : false
+            }
+          </div>
+          <PrettyDebug ref="prettyDebug" data={this.state.results} />
+          <button type="button" className="button expanded" style={{float:'right'}} onClick={ this.reload.bind(this) } > reload </button>
+          <iframe src="/cms" ref="testframe" style={{height: "600px", width: "100%", marginTop: '-13px'}}></iframe>
         </div>
-        <PrettyDebug ref="prettyDebug" data={this.state.results} />
-        <button type="button" className="button expanded" style={{float:'right'}} onClick={ this.reload.bind(this) } > reload </button>
-        <iframe src="/cms" ref="testframe" style={{height: "600px", width: "100%", marginTop: '-13px'}}></iframe>
       </div>
     )
   }
