@@ -148,6 +148,7 @@ export class App extends Component {
             }
           </div>
           <PrettyDebug ref="prettyDebug" data={this.state.results} />
+          <a className="button expanded" href={"data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({results: this.state.original}))} download="data.json">download JSON from server</a>
           <button type="button" className="button expanded" style={{float:'right'}} onClick={ this.reload.bind(this) } > reload </button>
           <iframe src="/cms" ref="testframe" style={{height: "600px", width: "100%", marginTop: '-13px'}}></iframe>
         </div>

@@ -25459,6 +25459,11 @@ var App = exports.App = function (_Component) {
           ),
           _react2.default.createElement(_prettyDebug2.default, { ref: 'prettyDebug', data: this.state.results }),
           _react2.default.createElement(
+            'a',
+            { className: 'button expanded', href: "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ results: this.state.original })), download: 'data.json' },
+            'download JSON from server'
+          ),
+          _react2.default.createElement(
             'button',
             { type: 'button', className: 'button expanded', style: { float: 'right' }, onClick: this.reload.bind(this) },
             ' reload '
