@@ -26561,7 +26561,7 @@ var EventEditor = exports.EventEditor = function (_Component) {
           _react2.default.createElement(
             'h2',
             null,
-            'attendees section'
+            'Attendees section'
           ),
           attendeesSection
         )

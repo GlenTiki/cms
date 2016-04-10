@@ -30,6 +30,70 @@ var connectionListener = false
 // a remote installation
 var port = (process.env.VCAP_APP_PORT || 3000)
 var host = (process.env.VCAP_APP_HOST || 'localhost')
+var cradle = require('cradle')
+
+
+var dbconf = {
+  secure: false
+}
+if (process.env.VCAP_SERVICES) {
+  var VCAP_SERVICES = JSON.parse(process.env.VCAP_SERVICES)
+  dbconf = {
+    host: VCAP_SERVICES.cloudantNoSQLDB[0].credentials.host,
+    port: VCAP_SERVICES.cloudantNoSQLDB[0].credentials.port,
+    username: VCAP_SERVICES.cloudantNoSQLDB[0].credentials.username,
+    password: VCAP_SERVICES.cloudantNoSQLDB[0].credentials.password,
+    secure: true
+  }
+}
+dbconf = {
+  host: dbconf.host || 'localhost',
+  port: dbconf.port || 5984,
+  auth: {
+    username: dbconf.username || 'cms',
+    password: dbconf.password || 'default'
+  },
+  secure: dbconf.secure
+}
+
+cradle.setup({
+  host: dbconf.host,
+  port: dbconf.port,
+  cache: true,
+  raw: false,
+  secure: dbconf.secure,
+  auth: dbconf.auth,
+  retries: 3,
+  retryTimeout: 30 * 1000
+})
+var dbConnection = new cradle.Connection()
+var db = dbConnection.database('cms')
+
+db.exists(function (err, exists) {
+  if (err) {
+    console.log('error creating mediasync db', err.message, err)
+    console.log('exiting!')
+    process.exit(1)
+  } else if (exists) {
+    db.get('data', function(err, doc) {
+      if (err || !doc) {
+        db.save('data', data)
+      }
+    })
+  } else {
+    console.log('mediasync database does not exist yet. creating.')
+    db.create()
+
+    setTimeout(function () {
+      db.get('data', function(err, doc) {
+        if (err || !doc) {
+          db.save('data', data)
+        }
+      })
+    }, 1000)
+  }
+})
+
 
 //var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
 
@@ -46,14 +110,17 @@ app.use('/', express.static(__dirname + '/public'))
 app.use('/cms', express.static(__dirname + '/cms/public'))
 
 app.get('/data', function (req, res) {
-  res.send(data)
+  db.get('data', function(err, doc) {
+    res.send(doc)
+  })
 })
 
 app.post('/data', function (req, res) {
   // If I had more time and less college work, I would do data validation over here.
-  console.log(req)
-  data = req.body.data
-  res.send(data)
+  var data = req.body.data
+  db.save('data', data, function (err, doc) {
+    res.send(data)
+  })
 })
 
 var server = {},
