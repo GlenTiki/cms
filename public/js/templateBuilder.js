@@ -23,7 +23,7 @@ module.exports.createEvent = function(id) {
     "notes": "_",
     "contact":{
       "meta":{
-        "enabled":false
+        "enabled":true
       },
       "data":{
         "surname":"",
@@ -39,7 +39,7 @@ module.exports.createEvent = function(id) {
         "enabled":true,
         "template":"organisation_minimum",
         "ui_text_attendee":"Delegate",
-        "ui_text_to_display":"ZZZZZ",
+        "ui_text_to_display":"School",
         "requireContactDetails":true,
         "allowChooser":true,
         "allowCountyFilter":true,
@@ -128,7 +128,7 @@ module.exports.createEvent = function(id) {
     "offerings": {
       "meta": {
         "visible":true,
-        "columns":2,
+        "columns":1,
         "columnCss": " b_solid rl_bkg_color_blue1 rl_rcorners25",
         "columnStyle": "padding-bottom:10px;  ",
         "itemCss" : "  rl_rcorners15 rl_brd_clr_black rl_brd_solid rl_box_shadow1 rl_margin_top_10",
@@ -147,22 +147,6 @@ module.exports.createEvent = function(id) {
             },
             {
               "text":"10am-12.30pm aaaaaaaaaa",
-              "css":"rl_padding_left_15 rl_font_1_2",
-              "style":""
-            }
-          ]
-        },
-        {
-          "status":"", "date":"", "quota" : -1,
-          "order":2,
-          "visible":true,
-          "lines":[{
-              "text":"Tuesday 26th June 2015",
-              "css":"rl_padding_left_15 rl_font_1_5",
-              "style":""
-            },
-            {
-              "text":"2pm -4.30pm bbbbb, bbbbb",
               "css":"rl_padding_left_15 rl_font_1_2",
               "style":""
             }
@@ -191,12 +175,12 @@ module.exports.createOfferingSection = function (id) {
     "order":id+1,
     "visible":true,
     "lines":[{
-        "text":"Tuesday 26th June 2015",
+        "text":"Monday 25th June 2015",
         "css":"rl_padding_left_15 rl_font_1_5",
         "style":""
       },
       {
-        "text":"2pm -4.30pm additional info",
+        "text":"10am-12.30pm aaaaaaaaaa",
         "css":"rl_padding_left_15 rl_font_1_2",
         "style":""
       }

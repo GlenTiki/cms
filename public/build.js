@@ -25614,6 +25614,114 @@ var EventEditor = exports.EventEditor = function (_Component) {
         })
       );
 
+      var TemplateEditor = function TemplateEditor() {
+        var textChanged = function textChanged() {
+          var next = event;
+          next.period = that.refs['period'].value;
+          next.template_meta.panel_hover_css = that.refs['template_meta_panel_hover_css'].value;
+          next.template_meta.submission_container_css = that.refs['template_meta_submission_container_css'].value;
+          next.template_meta.attendee_edit_hover_css = that.refs['template_meta_attendee_edit_hover_css'].value;
+          next.template_meta.description = that.refs['template_meta_description'].value;
+
+          that.setState({ event: next });
+        };
+
+        var changedType = function changedType(e) {
+          var next = event;
+          next.model_type = e.target.value;
+          next.template_meta.type = 'template1_' + (e.target.value.toLowerCase() == 'workshop' ? 'workshops' : 'seminar');
+          that.setState({ event: next });
+        };
+        return _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'div',
+            { className: 'input-group' },
+            _react2.default.createElement(
+              'span',
+              { className: 'input-group-label' },
+              'Model Type'
+            ),
+            _react2.default.createElement(
+              'select',
+              { value: event.model_type, onChange: changedType, className: 'input-group-field' },
+              _react2.default.createElement(
+                'option',
+                { value: 'Seminar' },
+                'Seminar'
+              ),
+              _react2.default.createElement(
+                'option',
+                { value: 'Workshop' },
+                'Workshop'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'label',
+            null,
+            'Period'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'period',
+            type: 'text',
+            placeholder: 'period',
+            value: event.period,
+            onChange: textChanged
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'template_meta panel_hover_css'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'template_meta_panel_hover_css',
+            type: 'text',
+            placeholder: 'template_meta panel_hover_css',
+            value: event.template_meta.panel_hover_css,
+            onChange: textChanged
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'template_meta submission_container_css'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'template_meta_submission_container_css',
+            type: 'text',
+            placeholder: 'template_meta submission_container_css',
+            value: event.template_meta.submission_container_css,
+            onChange: textChanged
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'template_meta attendee_edit_hover_css'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'template_meta_attendee_edit_hover_css',
+            type: 'text',
+            placeholder: 'template_meta attendee_edit_hover_css',
+            value: event.template_meta.attendee_edit_hover_css,
+            onChange: textChanged
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'template_meta description'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'template_meta_description',
+            type: 'text',
+            placeholder: 'template_meta description',
+            value: event.template_meta.description,
+            onChange: textChanged
+          })
+        );
+      };
+      var templateEditor = TemplateEditor();
+
       // MARK: overview meta element
       var overviewMeta = event.overview.meta;
       var overviewMetaEditor = _react2.default.createElement(
@@ -25724,6 +25832,12 @@ var EventEditor = exports.EventEditor = function (_Component) {
           event.offerings.meta.columnStyle = that.refs['ofcolumnstyle'].value;
           event.offerings.meta.itemCss = that.refs['ofitemcss'].value;
           event.offerings.meta.itemStyle = that.refs['ofitemstyle'].value;
+          that.setState({ event: event });
+        };
+
+        var handleActiveChange = function handleActiveChange(e) {
+          var event = that.state.event;
+          event.offerings.meta.visible = !offeringMeta.visible;
           that.setState({ event: event });
         };
 
@@ -25946,6 +26060,312 @@ var EventEditor = exports.EventEditor = function (_Component) {
         offeringsNodes
       );
 
+      var organisation = event.organisation;
+
+      var OrganisationSection = function OrganisationSection() {
+        var handleTextChange = function handleTextChange() {
+          var event = that.state.event;
+          event.organisation.meta['ui_text_to_display'] = that.refs['orgtype'].value;
+          event.organisation.meta['addressfilterfield'] = that.refs['addressfilterfield'].value;
+          event.organisation.meta['sectorNo_text'] = that.refs['sectorNo_text'].value;
+          event.organisation.data['orgId'] = that.refs['orgId'].value;
+          event.organisation['orgId'] = that.refs['orgId'].value;
+          event.organisation.data['name'] = that.refs['name'].value;
+          event.organisation['name'] = that.refs['name'].value;
+          event.organisation.data['email'] = that.refs['email'].value;
+          event.organisation['email'] = that.refs['email'].value;
+          event.organisation.data['email2'] = that.refs['email2'].value;
+          event.organisation['email2'] = that.refs['email2'].value;
+          event.organisation.data['address'] = that.refs['address'].value;
+          event.organisation['address'] = that.refs['address'].value;
+          event.organisation.data['County'] = that.refs['County'].value;
+          event.organisation['County'] = that.refs['County'].value;
+
+          that.setState({ event: event });
+        };
+
+        var handleActiveChange = function handleActiveChange(e) {
+          var event = that.state.event;
+          event.organisation.meta.enabled = !organisation.meta.enabled;
+          that.setState({ event: event });
+        };
+
+        var changedTemplate = function changedTemplate(e) {
+          var next = event;
+          console.log(e.target.value);
+          next.organisation.meta.template = e.target.value;
+          that.setState({ event: next });
+        };
+
+        return _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement('input', {
+            type: 'checkbox',
+            checked: organisation.meta.enabled,
+            onChange: handleActiveChange
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'Enabled'
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'div',
+            { className: 'input-group' },
+            _react2.default.createElement(
+              'span',
+              { className: 'input-group-label' },
+              'Template Type'
+            ),
+            _react2.default.createElement(
+              'select',
+              { value: organisation.meta.template, onChange: changedTemplate, className: 'input-group-field' },
+              _react2.default.createElement(
+                'option',
+                { value: 'organisation_minimum' },
+                'minimum'
+              ),
+              _react2.default.createElement(
+                'option',
+                { value: 'organisation_maximum' },
+                'maximum'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'label',
+            null,
+            'Organisation type'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'orgtype',
+            type: 'text',
+            value: organisation.meta['ui_text_to_display'],
+            onChange: handleTextChange,
+            placeholder: 'Organisation type'
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'address filter field'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'addressfilterfield',
+            type: 'text',
+            value: organisation.meta['addressfilterfield'],
+            onChange: handleTextChange,
+            placeholder: 'addressfilterfield'
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'Sector No Text'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'sectorNo_text',
+            type: 'text',
+            value: organisation.meta['sectorNo_text'],
+            onChange: handleTextChange,
+            placeholder: 'sectorNo_text'
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'orgId'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'orgId',
+            type: 'text',
+            value: organisation.data['orgId'],
+            onChange: handleTextChange,
+            placeholder: 'orgId'
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'name'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'name',
+            type: 'text',
+            value: organisation.data['name'],
+            onChange: handleTextChange,
+            placeholder: 'name'
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'email'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'email',
+            type: 'text',
+            value: organisation.data['email'],
+            onChange: handleTextChange,
+            placeholder: 'email'
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'email confirmation'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'email2',
+            type: 'text',
+            value: organisation.data['email2'],
+            onChange: handleTextChange,
+            placeholder: 'email2'
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'address'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'address',
+            type: 'text',
+            value: organisation.data['address'],
+            onChange: handleTextChange,
+            placeholder: 'address'
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'County'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'County',
+            type: 'text',
+            value: organisation.data['County'],
+            onChange: handleTextChange,
+            placeholder: 'County'
+          })
+        );
+      };
+      var organisationSection = OrganisationSection();
+
+      var contact = event.contact;
+
+      var ContactSection = function ContactSection() {
+        var handleTextChange = function handleTextChange() {
+          var event = that.state.event;
+          event.contact.data['surname'] = that.refs['contactsurname'].value;
+          event.contact.data['forename'] = that.refs['contactforename'].value;
+          event.contact.data['position'] = that.refs['contactposition'].value;
+          event.contact.data['email'] = that.refs['contactemail'].value;
+          event.contact.data['email2'] = that.refs['contactemail2'].value;
+          event.contact.data['phone'] = that.refs['contactphone'].value;
+
+          that.setState({ event: event });
+        };
+
+        var handleActiveChange = function handleActiveChange(e) {
+          var event = that.state.event;
+          event.contact.meta.enabled = !contact.meta.enabled;
+          that.setState({ event: event });
+        };
+
+        return _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement('input', {
+            type: 'checkbox',
+            checked: contact.meta.enabled,
+            onChange: handleActiveChange
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'Enabled'
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            null,
+            'surname'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'contactsurname',
+            type: 'text',
+            value: contact.data['surname'],
+            onChange: handleTextChange,
+            placeholder: 'surname'
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'forename'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'contactforename',
+            type: 'text',
+            value: contact.data['forename'],
+            onChange: handleTextChange,
+            placeholder: 'forename'
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'position'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'contactposition',
+            type: 'text',
+            value: contact.data['position'],
+            onChange: handleTextChange,
+            placeholder: 'position'
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'email'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'contactemail',
+            type: 'text',
+            value: contact.data['email'],
+            onChange: handleTextChange,
+            placeholder: 'email'
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'email2'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'contactemail2',
+            type: 'text',
+            value: contact.data['email2'],
+            onChange: handleTextChange,
+            placeholder: 'email2'
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'phone'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'contactphone',
+            type: 'text',
+            value: contact.data['phone'],
+            onChange: handleTextChange,
+            placeholder: 'phone'
+          })
+        );
+      };
+      var contactSection = ContactSection();
+
+      var AttendeesSection = function AttendeesSection() {
+        return _react2.default.createElement(
+          'div',
+          null,
+          'ha'
+        );
+      };
+      var attendeesSection = AttendeesSection();
+
       return _react2.default.createElement(
         'div',
         null,
@@ -25955,13 +26375,14 @@ var EventEditor = exports.EventEditor = function (_Component) {
           _react2.default.createElement(
             'h2',
             { className: '' },
-            ' Overview Section '
+            ' Event Editor '
           ),
           _react2.default.createElement(
             'div',
             { className: 'callout' },
             titleEditor,
             subtitleEditor,
+            templateEditor,
             overviewMetaEditor
           ),
           _react2.default.createElement(
@@ -25994,6 +26415,36 @@ var EventEditor = exports.EventEditor = function (_Component) {
             'Offerings section'
           ),
           offeringsSection
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'callout' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            'Organisation section'
+          ),
+          organisationSection
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'callout' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            'Contact section'
+          ),
+          contactSection
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'callout' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            'attendees section'
+          ),
+          attendeesSection
         )
       );
     }
@@ -26116,7 +26567,7 @@ module.exports.createEvent = function (id) {
     "notes": "_",
     "contact": {
       "meta": {
-        "enabled": false
+        "enabled": true
       },
       "data": {
         "surname": "",
@@ -26132,7 +26583,7 @@ module.exports.createEvent = function (id) {
         "enabled": true,
         "template": "organisation_minimum",
         "ui_text_attendee": "Delegate",
-        "ui_text_to_display": "ZZZZZ",
+        "ui_text_to_display": "School",
         "requireContactDetails": true,
         "allowChooser": true,
         "allowCountyFilter": true,
@@ -26203,7 +26654,7 @@ module.exports.createEvent = function (id) {
     "offerings": {
       "meta": {
         "visible": true,
-        "columns": 2,
+        "columns": 1,
         "columnCss": " b_solid rl_bkg_color_blue1 rl_rcorners25",
         "columnStyle": "padding-bottom:10px;  ",
         "itemCss": "  rl_rcorners15 rl_brd_clr_black rl_brd_solid rl_box_shadow1 rl_margin_top_10",
@@ -26220,19 +26671,6 @@ module.exports.createEvent = function (id) {
           "style": ""
         }, {
           "text": "10am-12.30pm aaaaaaaaaa",
-          "css": "rl_padding_left_15 rl_font_1_2",
-          "style": ""
-        }]
-      }, {
-        "status": "", "date": "", "quota": -1,
-        "order": 2,
-        "visible": true,
-        "lines": [{
-          "text": "Tuesday 26th June 2015",
-          "css": "rl_padding_left_15 rl_font_1_5",
-          "style": ""
-        }, {
-          "text": "2pm -4.30pm bbbbb, bbbbb",
           "css": "rl_padding_left_15 rl_font_1_2",
           "style": ""
         }]
@@ -26259,11 +26697,11 @@ module.exports.createOfferingSection = function (id) {
     "order": id + 1,
     "visible": true,
     "lines": [{
-      "text": "Tuesday 26th June 2015",
+      "text": "Monday 25th June 2015",
       "css": "rl_padding_left_15 rl_font_1_5",
       "style": ""
     }, {
-      "text": "2pm -4.30pm additional info",
+      "text": "10am-12.30pm aaaaaaaaaa",
       "css": "rl_padding_left_15 rl_font_1_2",
       "style": ""
     }]

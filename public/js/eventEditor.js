@@ -97,6 +97,90 @@ export class EventEditor extends Component {
       </label>
     )
 
+    var TemplateEditor = function () {
+      var textChanged = function(){
+        var next = event
+        next.period = that.refs['period'].value
+        next.template_meta.panel_hover_css = that.refs['template_meta_panel_hover_css'].value
+        next.template_meta.submission_container_css = that.refs['template_meta_submission_container_css'].value
+        next.template_meta.attendee_edit_hover_css = that.refs['template_meta_attendee_edit_hover_css'].value
+        next.template_meta.description = that.refs['template_meta_description'].value
+
+        that.setState({event: next})
+      }
+
+      var changedType = function (e) {
+        var next = event
+        next.model_type = e.target.value
+        next.template_meta.type = 'template1_'+(e.target.value.toLowerCase()=='workshop'?'workshops':'seminar')
+        that.setState({event: next})
+      }
+      return (
+        <div>
+          <div className="input-group">
+            <span className="input-group-label">
+              Model Type
+            </span>
+            <select value={event.model_type} onChange={changedType} className="input-group-field">
+              <option value='Seminar'>Seminar</option>
+              <option value='Workshop'>Workshop</option>
+            </select>
+          </div>
+          <label>
+            Period
+          </label>
+          <input
+            ref="period"
+            type="text"
+            placeholder="period"
+            value={event.period}
+            onChange={textChanged}
+          />
+          <label>
+            template_meta panel_hover_css
+          </label>
+          <input
+            ref="template_meta_panel_hover_css"
+            type="text"
+            placeholder="template_meta panel_hover_css"
+            value={event.template_meta.panel_hover_css}
+            onChange={textChanged}
+          />
+          <label>
+            template_meta submission_container_css
+          </label>
+          <input
+            ref="template_meta_submission_container_css"
+            type="text"
+            placeholder="template_meta submission_container_css"
+            value={event.template_meta.submission_container_css}
+            onChange={textChanged}
+          />
+          <label>
+            template_meta attendee_edit_hover_css
+          </label>
+          <input
+            ref="template_meta_attendee_edit_hover_css"
+            type="text"
+            placeholder="template_meta attendee_edit_hover_css"
+            value={event.template_meta.attendee_edit_hover_css}
+            onChange={textChanged}
+          />
+          <label>
+            template_meta description
+          </label>
+          <input
+            ref="template_meta_description"
+            type="text"
+            placeholder="template_meta description"
+            value={event.template_meta.description}
+            onChange={textChanged}
+          />
+        </div>
+      )
+    }
+    var templateEditor = TemplateEditor()
+
     // MARK: overview meta element
     var overviewMeta = event.overview.meta
     var overviewMetaEditor = (
@@ -204,6 +288,12 @@ export class EventEditor extends Component {
         event.offerings.meta.columnStyle = that.refs['ofcolumnstyle'].value
         event.offerings.meta.itemCss = that.refs['ofitemcss'].value
         event.offerings.meta.itemStyle = that.refs['ofitemstyle'].value
+        that.setState({event: event})
+      }
+
+      var handleActiveChange = function(e){
+        var event = that.state.event
+        event.offerings.meta.visible = !offeringMeta.visible
         that.setState({event: event})
       }
 
@@ -342,13 +432,235 @@ export class EventEditor extends Component {
     </div>
     )
 
+    var organisation = event.organisation
+
+    var OrganisationSection = function () {
+      var handleTextChange = function () {
+        var event = that.state.event
+        event.organisation.meta['ui_text_to_display'] = that.refs['orgtype'].value
+        event.organisation.meta['addressfilterfield'] = that.refs['addressfilterfield'].value
+        event.organisation.meta['sectorNo_text'] = that.refs['sectorNo_text'].value
+        event.organisation.data['orgId'] = that.refs['orgId'].value
+        event.organisation['orgId'] = that.refs['orgId'].value
+        event.organisation.data['name'] = that.refs['name'].value
+        event.organisation['name'] = that.refs['name'].value
+        event.organisation.data['email'] = that.refs['email'].value
+        event.organisation['email'] = that.refs['email'].value
+        event.organisation.data['email2'] = that.refs['email2'].value
+        event.organisation['email2'] = that.refs['email2'].value
+        event.organisation.data['address'] = that.refs['address'].value
+        event.organisation['address'] = that.refs['address'].value
+        event.organisation.data['County'] = that.refs['County'].value
+        event.organisation['County'] = that.refs['County'].value
+
+        that.setState({event: event})
+      }
+
+      var handleActiveChange = function(e){
+        var event = that.state.event
+        event.organisation.meta.enabled = !organisation.meta.enabled
+        that.setState({event: event})
+      }
+
+      var changedTemplate = function (e) {
+        var next = event
+        console.log(e.target.value)
+        next.organisation.meta.template = e.target.value
+        that.setState({event: next})
+      }
+
+      return (
+        <div>
+          <input
+            type="checkbox"
+            checked={organisation.meta.enabled}
+            onChange={handleActiveChange}
+          />
+        <label>Enabled</label><br/>
+          <div className="input-group">
+            <span className="input-group-label">
+              Template Type
+            </span>
+            <select value={organisation.meta.template} onChange={changedTemplate} className="input-group-field">
+              <option value='organisation_minimum'>minimum</option>
+              <option value='organisation_maximum'>maximum</option>
+            </select>
+          </div>
+          <label>Organisation type</label>
+            <input
+              ref={'orgtype'}
+              type="text"
+              value={organisation.meta['ui_text_to_display']}
+              onChange={handleTextChange}
+              placeholder="Organisation type"
+            />
+          <label>address filter field</label>
+            <input
+              ref={'addressfilterfield'}
+              type="text"
+              value={organisation.meta['addressfilterfield']}
+              onChange={handleTextChange}
+              placeholder="addressfilterfield"
+            />
+          <label>Sector No Text</label>
+            <input
+              ref={'sectorNo_text'}
+              type="text"
+              value={organisation.meta['sectorNo_text']}
+              onChange={handleTextChange}
+              placeholder="sectorNo_text"
+            />
+          <label>orgId</label>
+            <input
+              ref={'orgId'}
+              type="text"
+              value={organisation.data['orgId']}
+              onChange={handleTextChange}
+              placeholder="orgId"
+            />
+          <label>name</label>
+            <input
+              ref={'name'}
+              type="text"
+              value={organisation.data['name']}
+              onChange={handleTextChange}
+              placeholder="name"
+            />
+          <label>email</label>
+            <input
+              ref={'email'}
+              type="text"
+              value={organisation.data['email']}
+              onChange={handleTextChange}
+              placeholder="email"
+            />
+          <label>email confirmation</label>
+            <input
+              ref={'email2'}
+              type="text"
+              value={organisation.data['email2']}
+              onChange={handleTextChange}
+              placeholder="email2"
+            />
+            <label>address</label>
+            <input
+              ref={'address'}
+              type="text"
+              value={organisation.data['address']}
+              onChange={handleTextChange}
+              placeholder="address"
+            />
+            <label>County</label>
+            <input
+              ref={'County'}
+              type="text"
+              value={organisation.data['County']}
+              onChange={handleTextChange}
+              placeholder="County"
+            />
+
+        </div>
+      )
+    }
+    var organisationSection = OrganisationSection()
+
+    var contact = event.contact
+
+    var ContactSection = function () {
+      var handleTextChange = function () {
+        var event = that.state.event
+        event.contact.data['surname'] = that.refs['contactsurname'].value
+        event.contact.data['forename'] = that.refs['contactforename'].value
+        event.contact.data['position'] = that.refs['contactposition'].value
+        event.contact.data['email'] = that.refs['contactemail'].value
+        event.contact.data['email2'] = that.refs['contactemail2'].value
+        event.contact.data['phone'] = that.refs['contactphone'].value
+
+        that.setState({event: event})
+      }
+
+      var handleActiveChange = function(e){
+        var event = that.state.event
+        event.contact.meta.enabled = !contact.meta.enabled
+        that.setState({event: event})
+      }
+
+      return (
+        <div>
+          <input
+            type="checkbox"
+            checked={contact.meta.enabled}
+            onChange={handleActiveChange}
+          />
+        <label>Enabled</label><br/>
+          <label>surname</label>
+            <input
+              ref={'contactsurname'}
+              type="text"
+              value={contact.data['surname']}
+              onChange={handleTextChange}
+              placeholder="surname"
+            />
+          <label>forename</label>
+            <input
+              ref={'contactforename'}
+              type="text"
+              value={contact.data['forename']}
+              onChange={handleTextChange}
+              placeholder="forename"
+            />
+          <label>position</label>
+            <input
+              ref={'contactposition'}
+              type="text"
+              value={contact.data['position']}
+              onChange={handleTextChange}
+              placeholder="position"
+            />
+          <label>email</label>
+            <input
+              ref={'contactemail'}
+              type="text"
+              value={contact.data['email']}
+              onChange={handleTextChange}
+              placeholder="email"
+            />
+          <label>email2</label>
+            <input
+              ref={'contactemail2'}
+              type="text"
+              value={contact.data['email2']}
+              onChange={handleTextChange}
+              placeholder="email2"
+            />
+          <label>phone</label>
+            <input
+              ref={'contactphone'}
+              type="text"
+              value={contact.data['phone']}
+              onChange={handleTextChange}
+              placeholder="phone"
+            />
+        </div>
+      )
+    }
+    var contactSection = ContactSection()
+
+    var AttendeesSection = function() {
+      return (
+        <div>ha</div>
+      )
+    }
+    var attendeesSection = AttendeesSection()
+
     return (
       <div>
         <div className="callout">
-          <h2 className=""> Overview Section </h2>
+          <h2 className=""> Event Editor </h2>
           <div className="callout">
             {titleEditor}
             {subtitleEditor}
+            {templateEditor}
             {overviewMetaEditor}
           </div>
           <div className="row">
@@ -360,8 +672,28 @@ export class EventEditor extends Component {
           { overviewNodes }
         </div>
         <div className="callout">
-          <h2>Offerings section</h2>
+          <h2>
+            Offerings section
+          </h2>
           { offeringsSection }
+        </div>
+        <div className="callout">
+          <h2>
+            Organisation section
+          </h2>
+          { organisationSection }
+        </div>
+        <div className="callout">
+          <h2>
+            Contact section
+          </h2>
+          { contactSection }
+        </div>
+        <div className="callout">
+          <h2>
+            attendees section
+          </h2>
+          { attendeesSection }
         </div>
       </div>
     )
