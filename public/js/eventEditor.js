@@ -646,9 +646,96 @@ export class EventEditor extends Component {
     }
     var contactSection = ContactSection()
 
+    var attendees = event.attendees_meta
     var AttendeesSection = function() {
+      var handleLunchChange = function () {
+          var event = that.state.event
+          event.attendees_meta.request_lunch = !event.attendees_meta.request_lunch
+          that.setState({event: event})
+      }
+
+      var handlePositionChange = function () {
+          var event = that.state.event
+          event.attendees_meta.request_position = !event.attendees_meta.request_position
+          that.setState({event: event})
+      }
+
+      var handleTextChange = function () {
+        var event = that.state.event
+        try {
+          event.attendees_meta.maxNo = parseInt(that.refs['attendeesmax'].value)
+        } catch (e) {}
+        that.setState({event: event})
+      }
+
+      var addPosition = function () {
+        var event = that.state.event
+        event.attendees_meta.positions.push({
+          id: event.attendees_meta.positions.length,
+          name: "position"
+        })
+        that.setState({event: event})
+      }
+
+      var deletePosition = function () {
+          var event = that.state.event
+          event.attendees_meta.positions.pop()
+          that.setState({event: event})
+      }
+
+      var positionsNodes = (<div>No positions added</div>)
+      if (attendees.positions.length > 0)
+        positionsNodes = attendees.positions.map(function (pos, i) {
+          var handleChange = function () {
+            var event = that.state.event
+            event.attendees_meta.positions[i].name = that.refs['attendeespos'+i].value
+            that.setState({event: event})
+          }
+
+          return (
+            <div key={i}>
+              <label>Position Name</label>
+              <input
+                ref={'attendeespos'+i}
+                type="text"
+                value={pos.name}
+                onChange={handleChange}
+                placeholder="Position name"
+                />
+            </div>
+          )
+        })
+
       return (
-        <div>ha</div>
+        <div>
+          <input
+            type="checkbox"
+            checked={event.attendees_meta.request_lunch}
+            onChange={handleLunchChange}
+          />
+          <label>Request Lunch</label><br/>
+          <input
+            type="checkbox"
+            checked={event.attendees_meta.request_position}
+            onChange={handlePositionChange}
+          />
+          <label>Request Position</label><br/>
+          <label>Attendees Max</label>
+          <input
+            ref={'attendeesmax'}
+            type="text"
+            value={attendees.maxNo}
+            onChange={handleTextChange}
+            placeholder="Attendees Max"
+          />
+          <div className="row">
+            {/*Now, allow variable numbers of fields...*/}
+            <button type="button" className="success button" style={{float:'right'}} onClick={addPosition} > + </button>
+            <button type="button" className="alert button" style={{float:'right'}} onClick={deletePosition} > - </button>
+            <h3 style={{float:'right'}}>Positions:</h3>
+          </div>
+        { positionsNodes }
+        </div>
       )
     }
     var attendeesSection = AttendeesSection()
@@ -691,7 +778,7 @@ export class EventEditor extends Component {
         </div>
         <div className="callout">
           <h2>
-            attendees section
+            Attendees section
           </h2>
           { attendeesSection }
         </div>

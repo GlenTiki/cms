@@ -26357,11 +26357,130 @@ var EventEditor = exports.EventEditor = function (_Component) {
       };
       var contactSection = ContactSection();
 
+      var attendees = event.attendees_meta;
       var AttendeesSection = function AttendeesSection() {
+        var handleLunchChange = function handleLunchChange() {
+          var event = that.state.event;
+          event.attendees_meta.request_lunch = !event.attendees_meta.request_lunch;
+          that.setState({ event: event });
+        };
+
+        var handlePositionChange = function handlePositionChange() {
+          var event = that.state.event;
+          event.attendees_meta.request_position = !event.attendees_meta.request_position;
+          that.setState({ event: event });
+        };
+
+        var handleTextChange = function handleTextChange() {
+          var event = that.state.event;
+          try {
+            event.attendees_meta.maxNo = parseInt(that.refs['attendeesmax'].value);
+          } catch (e) {}
+          that.setState({ event: event });
+        };
+
+        var addPosition = function addPosition() {
+          var event = that.state.event;
+          event.attendees_meta.positions.push({
+            id: event.attendees_meta.positions.length,
+            name: "position"
+          });
+          that.setState({ event: event });
+        };
+
+        var deletePosition = function deletePosition() {
+          var event = that.state.event;
+          event.attendees_meta.positions.pop();
+          that.setState({ event: event });
+        };
+
+        var positionsNodes = _react2.default.createElement(
+          'div',
+          null,
+          'No positions added'
+        );
+        if (attendees.positions.length > 0) positionsNodes = attendees.positions.map(function (pos, i) {
+          var handleChange = function handleChange() {
+            var event = that.state.event;
+            event.attendees_meta.positions[i].name = that.refs['attendeespos' + i].value;
+            that.setState({ event: event });
+          };
+
+          return _react2.default.createElement(
+            'div',
+            { key: i },
+            _react2.default.createElement(
+              'label',
+              null,
+              'Position Name'
+            ),
+            _react2.default.createElement('input', {
+              ref: 'attendeespos' + i,
+              type: 'text',
+              value: pos.name,
+              onChange: handleChange,
+              placeholder: 'Position name'
+            })
+          );
+        });
+
         return _react2.default.createElement(
           'div',
           null,
-          'ha'
+          _react2.default.createElement('input', {
+            type: 'checkbox',
+            checked: event.attendees_meta.request_lunch,
+            onChange: handleLunchChange
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'Request Lunch'
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement('input', {
+            type: 'checkbox',
+            checked: event.attendees_meta.request_position,
+            onChange: handlePositionChange
+          }),
+          _react2.default.createElement(
+            'label',
+            null,
+            'Request Position'
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            null,
+            'Attendees Max'
+          ),
+          _react2.default.createElement('input', {
+            ref: 'attendeesmax',
+            type: 'text',
+            value: attendees.maxNo,
+            onChange: handleTextChange,
+            placeholder: 'Attendees Max'
+          }),
+          _react2.default.createElement(
+            'div',
+            { className: 'row' },
+            _react2.default.createElement(
+              'button',
+              { type: 'button', className: 'success button', style: { float: 'right' }, onClick: addPosition },
+              ' + '
+            ),
+            _react2.default.createElement(
+              'button',
+              { type: 'button', className: 'alert button', style: { float: 'right' }, onClick: deletePosition },
+              ' - '
+            ),
+            _react2.default.createElement(
+              'h3',
+              { style: { float: 'right' } },
+              'Positions:'
+            )
+          ),
+          positionsNodes
         );
       };
       var attendeesSection = AttendeesSection();
